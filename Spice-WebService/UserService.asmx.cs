@@ -94,6 +94,27 @@ namespace Spice_WebService
             }
             return res;
         }
+        
+        [WebMethod]
+        public Response<User> ChangePassword(int UserID, string NewPassword)
+        {
+            Response<User> res = new Response<User>();
+
+            try
+            {
+                using(var userBusiness = new UserBusiness())
+                {
+                    res = userBusiness.ChangePassword(UserID, NewPassword);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                res.isSuccess = false;
+                res.Message = "An error occured in ChangePassword() in Spice-WebService.UserService\n" + ex.Message;
+            }
+            return res;
+        }
 
     }
 }
